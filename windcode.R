@@ -68,5 +68,6 @@ ggplot(wind, aes(x = X2, y = ..density..)) +
   geom_histogram(data = subset(wind, year < max(year), fill = cols[9], alpha = 0.7)) +
   labs(x = "Wind Speed")
 
+save(wind, file = "wind.RData")
 
 
