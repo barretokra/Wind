@@ -28,3 +28,11 @@ Instruções para uso:
 6.6 - Aprendido isto, apagar as instruções e atualizar as etapas
 
 Etapa 1 : Verificação se as distribuições de probabilidade seguem a uma estabilidade (Tarssio Barreto)
+
+* Realizar distribuição por horario
+
+* Parametros da Weibull para cada ajuste
+
+-> Concluo que uma única Weibull nao ajusta todos os horários 
+
+* Trabalhar com a reconstituição da frequencia 
