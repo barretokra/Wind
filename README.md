@@ -1,5 +1,5 @@
 # Wind
-Repositório para trabalhar dados a cada 3 horas de Velocidade do Vento
+Repositório para analisar dados de Velocidade do Vento com frequência de observação (1/3)h^-1 
 
 Instruções para uso:
 
