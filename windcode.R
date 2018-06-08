@@ -72,8 +72,44 @@ ggplot(wind, aes(x = X2, y = ..density..)) +
 save(wind, file = "wind.RData")
 
 
+### Fiting the Weibull
+
+
+require(broom)
+require(purrr)
+require(tidyr)
+require(MASS)
+
+# loading data
+
+load(file = "wind.RData")
+
+wind_weibull <- wind %>% 
+  filter(year < 2018 & year > 1990) %>% 
+  dplyr::select(X2, hour) %>% 
+  group_by(hour) %>% 
+  summarise(vec = X2 %>% list) %>% 
+  mutate(mod = map(vec, ~MASS::fitdistr(.x, "Weibull"))) %>% 
+  mutate(mod_est_shape = map(mod, ("estimate")) %>% map_dbl("shape")) %>% 
+  mutate(mod_est_scale = map(mod, ("estimate")) %>% map_dbl("scale")) %>% 
+  mutate(mod_glance = map(mod, glance)) %>% 
+  dplyr::select(-vec, -mod) %>% 
+  unnest()
+
+# 3 Horas
+
+hour_3 <- data.frame(x = rweibull(wind_weibull$n[2], wind_weibull$mod_est_shape[2], 
+                                  scale = wind_weibull$mod_est_scale[2]))
+
+
 wind %>% 
-  filter(hour == "15") %>% 
-  filter(year > 1990 & year < 2016) %>% 
+  filter(year < 2018 & year > 1990) %>% 
+  filter(hour == "03") %>% 
   ggplot(aes(x = X2, y = ..density..)) +
-  geom_histogram(binwidth = 0.45 )
+  geom_histogram(binwidth = 0.45, fill = "red", alpha = 0.7)+
+  geom_histogram(data = hour_3, aes(x = x, y = ..density..), fill = "blue",
+                 binwidth = 0.45, alpha = 0.7)
+
+
+  
+

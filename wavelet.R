@@ -5,6 +5,9 @@ if (!require("reshape2")) install.packages("reshape2") ; library(reshape2)
 if (!require("WaveletComp")) install.packages("WaveletComp") ; library(WaveletComp)
 if (!require("hms")) install.packages("hms") ; library(hms)
 
+require(broom)
+require(purrr)
+require(tidyr)
 
 # loading data
 
